@@ -2,6 +2,9 @@ let respuser = '23/04/2001';
 
 respuser = respuser.split("/").reverse();
 
-let data = new Date (respuser);
+respuser = respuser.toString()
+for (let i = 0; i < respuser.length; i++) {
+    respuser = respuser.replace(",", "-");
+}
 
-console.log(data)
+console.log(respuser)
