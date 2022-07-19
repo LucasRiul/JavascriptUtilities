@@ -1,0 +1,73 @@
+function run(buscaListaAtividadesIdClienteHttpResponseBody) {
+    let formmatedJson = buscaListaAtividadesIdClienteHttpResponseBody;
+
+    formmatedJson = formmatedJson.items;
+
+    formmatedJson.map(x => x.status = "canceled");
+
+    return formmatedJson;
+}
+
+console.log(run({
+    "items": [
+        {
+            "id": "MTc5M2JlOGUtY2Q1Ny00ZTA2LThlY2EtNGY5OTJhNGQwMTM5OjQwNDA4",
+            "duration": 60,
+            "position": 100,
+            "status": "reported",
+            "startedAt": "2022-04-08T18:00:01.000Z",
+            "completedAt": "2022-04-08T18:04:07.000Z",
+            "statusDescription": null,
+            "description": null,
+            "viewedAt": "2022-04-08T18:00:01Z",
+            "receivedAt": "2022-04-08T17:59:57Z",
+            "archived": false,
+            "createdAt": "2022-04-08T12:16:21Z",
+            "employee": {
+                "id": "NDQ0OTQ6NDA0MDg="
+            },
+            "order": {
+                "id": "MzRjNTA0YzctOWE4YS00ZWExLTlkMGEtZDE0NzI5MjU5MmMzOjQwNDA4"
+            },
+            "scheduling": {
+                "type": "scheduled-date-and-time",
+                "date": "2022-04-08",
+                "time": "15:00:00"
+            },
+            "coords": {
+                "latitude": -23.564136,
+                "longitude": -46.322144
+            }
+        },
+        {
+            "id": "MmU2MTA3MjQtZWY0OS00YmJiLWIzMzUtNzhlYjczZDEzMTBkOjQwNDA4",
+            "duration": 60,
+            "position": 100,
+            "status": "reported",
+            "startedAt": "2022-04-08T17:59:53.000Z",
+            "completedAt": "2022-04-08T18:04:24.000Z",
+            "statusDescription": "MORADORA EM REUNIÃO. ",
+            "description": "Por gentileza, instruir o proprietário que a fita utilizada é própria para o reparo de trincas e fissuras",
+            "viewedAt": "2022-04-08T17:59:49Z",
+            "receivedAt": "2022-04-08T17:59:41Z",
+            "archived": false,
+            "createdAt": "2022-04-08T12:16:21Z",
+            "employee": {
+                "id": "NDQ0OTI6NDA0MDg="
+            },
+            "order": {
+                "id": "MzRjNTA0YzctOWE4YS00ZWExLTlkMGEtZDE0NzI5MjU5MmMzOjQwNDA4"
+            },
+            "scheduling": {
+                "type": "scheduled-date-and-time",
+                "date": "2022-04-08",
+                "time": "15:00:00"
+            },
+            "coords": {
+                "latitude": -23.564136,
+                "longitude": -46.322144
+            }
+        }
+    ],
+    "totalCount": 2
+}))
