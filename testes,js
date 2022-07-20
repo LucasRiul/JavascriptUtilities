@@ -1,11 +1,44 @@
-function run(buscaListaAtividadesIdClienteHttpResponseBody) {
-    let formmatedJson = buscaListaAtividadesIdClienteHttpResponseBody;
+function run(buscaAtividadesIdOrdemHttpResponseBody, MenuSCEAssistenciaTecnica10 , MenuSCEAssistenciaTecnica11) {
 
-    formmatedJson = formmatedJson.items;
+    let formattedJson = buscaAtividadesIdOrdemHttpResponseBody;
+    let lista = formattedJson.items;
+    let mensagem = "";
+    let datas = [];
+    let acao = 'cancelar';
 
-    formmatedJson.map(x => x.status = "canceled");
+    if (MenuSCEAssistenciaTecnica10 == 3 || MenuSCEAssistenciaTecnica11 == 'Opção 3') {
+        acao = 'reagendar';
+    }
 
-    return formmatedJson;
+    for (let i = 0; i < lista.length; i++) {
+
+        let dataa = lista[i].scheduling.date + 'T' + lista[i].scheduling.time;
+        let dataAgendamento = new Date(dataa)
+        datas.push(dataAgendamento);
+    }
+
+    for (i = 0; i < lista.length; i++) {
+        if ("{{contact.source}}" == ("Messenger") || "{{contact.source}}" == ("WhatsApp")) {
+            mensagem += "*" + (i + 1) + "*" + " - Data da visita : " + formataData(datas[i]) + "\nDescrição: " + ((lista[i].description) ? lista[i].description : 'Sem descrição') + "\n\n";
+        } else if ("{{contact.source}}" == ("0mn.io")) {
+            mensagem += "<b>" + (i + 1) + "</b>" + " - Data da visita : " + formataData(datas[i]) + "\nDescrição: " + ((lista[i].description) ? lista[i].description : 'Sem descrição') + "\n\n";
+        } else {
+            mensagem += (i + 1) + " - Data da visita : " + formataData(datas[i]) + "\nDescrição: " + ((lista[i].description) ? lista[i].description : 'Sem descrição') + "\n\n";
+        }
+
+    }
+
+    if ("{{contact.source}}" == ("Messenger") || "{{contact.source}}" == ("WhatsApp")) {
+        return "Encontrei estas visitas vinculados ao seu CPF, qual delas deseja " + acao + "? \n\n" + mensagem + "\n➡️ Digite o *número* da opção que deseja escolher.";
+    } else if ("{{contact.source}}" == ("0mn.io")) {
+        return "Encontrei estas visitas vinculados ao seu CPF, qual delas deseja " + acao + "? \n\n" + mensagem + "\n➡️ Digite o <b>número</b> da opção que deseja escolher.";
+    } else {
+        return "Encontrei estas visitas vinculados ao seu CPF, qual delas deseja " + acao + "? \n\n" + mensagem + "\n➡️ Digite o número da opção que deseja escolher.";
+    }
+}
+
+function formataData(data) {
+    return (data.getDate() < 10 ? '0' + data.getDate() : data.getDate()) + "/" + (data.getMonth() < 10 ? '0' + data.getMonth() : data.getMonth()) + "/" + data.getFullYear() + " " + data.getHours() + ":" + (data.getMinutes() < 10 ? '0' + data.getMinutes() : data.getMinutes()) + "h";
 }
 
 console.log(run({
@@ -70,4 +103,4 @@ console.log(run({
         }
     ],
     "totalCount": 2
-}))
+},null,'Opção 4'))
