@@ -4,4 +4,4 @@ function characterCount(str){
     return str.length;
 }
 
-console.log(characterCount('voltar ao menu inicial'))
+console.log(characterCount('Falar com especialista'))
